@@ -40,7 +40,7 @@ public class WebhookCaller {
 		System.out.println("Recovered: " + String.valueOf(dataObject.recovered));
 		
 		// sends the webhook
-		DiscordWebhook webhook = new DiscordWebhook("https://discordapp.com/api/webhooks/691076444369059893/r90tvQwI7hNKH-dtvS774A7nuzxPt53FqrxiS-5XvTTtX71HmhCKN3zQy7OG7ZO0bQjO");
+		DiscordWebhook webhook = new DiscordWebhook("");
 		webhook.setContent("Prepare to fucking die.");
 		webhook.setAvatarUrl("https://upload.wikimedia.org/wikipedia/en/b/b3/Plague_Inc._app_icon.png");
 		webhook.setUsername("Coronabot");
