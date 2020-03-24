@@ -18,9 +18,11 @@ public class WebhookCaller {
 	
 	public static void main(String [] args) {
 		
+		StatObject dataObject = null;
+		
 		// fetches stats
 		try {
-			StatObject dataObject = coronaStats();
+			dataObject = coronaStats();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -29,16 +31,32 @@ public class WebhookCaller {
 			e1.printStackTrace();
 		}
 		
+		// debug
+		String confirmed = String.valueOf(dataObject.confirmed);
+		String dead = String.valueOf(dataObject.deaths);
+		String recovered = String.valueOf(dataObject.recovered);
+		System.out.println("Confirmed: " + String.valueOf(dataObject.confirmed));
+		System.out.println("Dead: " + String.valueOf(dataObject.deaths));
+		System.out.println("Recovered: " + String.valueOf(dataObject.recovered));
+		
 		// sends the webhook
 		DiscordWebhook webhook = new DiscordWebhook("https://discordapp.com/api/webhooks/691076444369059893/r90tvQwI7hNKH-dtvS774A7nuzxPt53FqrxiS-5XvTTtX71HmhCKN3zQy7OG7ZO0bQjO");
-		webhook.setContent("This shithole of a planet is going the fuck down.");
+		webhook.setContent("Prepare to fucking die.");
 		webhook.setAvatarUrl("https://upload.wikimedia.org/wikipedia/en/b/b3/Plague_Inc._app_icon.png");
 		webhook.setUsername("Coronabot");
 		webhook.setTts(true);
 		webhook.addEmbed(new DiscordWebhook.EmbedObject()
-		        .setTitle("Coronavirus Statistics")
-		        .setDescription("TOTAL GLOBAL CONFIRMED CASES: ") // PUT THE CASES HERE
-		        .setColor(Color.RED));
+		        .setTitle("GLOBAL CONFIRMED CASES")
+		        .setDescription(confirmed) // PUT THE CASES HERE
+		        .setColor(Color.YELLOW));
+		webhook.addEmbed(new DiscordWebhook.EmbedObject()
+				.setTitle("GLOBAL FATALITIES")
+				.setDescription(dead)
+				.setColor(Color.RED));
+		webhook.addEmbed(new DiscordWebhook.EmbedObject()
+				.setTitle("GLOBAL RECOVERIES")
+				.setDescription(recovered)
+				.setColor(Color.GREEN));
 	    try {
 			webhook.execute();
 		} catch (IOException e) {
